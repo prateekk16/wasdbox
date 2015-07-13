@@ -139,11 +139,12 @@ app.controller('FriendController',['$http', '$scope', function($http, $scope) {
 
 
 $('#uploadAvatar').on('submit',(function(e){
+  e.preventDefault();
 
   $("#uploadAvatar-btn").attr("disabled", true);
   $(".uploadAvatar-btn-text").text("Please wait...");
 
-  e.preventDefault();
+  
   var url = $(this).attr('action');
   alert(url);
 
