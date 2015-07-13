@@ -26,7 +26,8 @@
             <li class="dropdown">
              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                  <li><a href="#">Settings</a></li>                  
+                  <li><a href="#">Settings</a></li> 
+                  <li><a href="#" data-toggle="modal" data-target=".change-dp-modal">Change DP</a></li>                     
                   <li class="divider"></li>                 
               </ul>
             </li>
@@ -89,6 +90,40 @@
 </nav>
 
 
+<div class="modal fade change-dp-modal" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4 col-md-offset-4"> 
+                {{ HTML::image('img/users/'.$user->email.'/avatar.jpg','avatar',  array('class' => 'avatar')) }}
+            </div>            
+          </div>
+          <div class="row" ng-controller="UploadAvatar">
+               {{ Form::open(array('url' => 'profile/uploadAvatar', 'files' => true)) }}
+                  <div class="col-md-4 col-md-offset-4">
+                     <input type="text" name="user" class="hidden" ng-init="user_email=' {{ $user->email }} '" ng-model = "user_email"/>                    
+                     {{ Form::file('avatar') }}
+                  </div>
+                  <div class="col-md-4 col-md-offset-4">
+                      <button type="submit" class="btn btn-primary" id="uploadAvatar" ng-click="uploadAvatar()">
+                  </div>
+                {{ Form::close() }}
+          </div>  
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 {{-- <div class="container" style="margin-top: 100px;" ng-controller="TodoController">
   <div class="row">
@@ -118,8 +153,8 @@
           <input type="textbox" style="display: none;" ng-init="userEmail='{{ $user->email }}'" ng-model="userEmail" id="userEmail" 
              value="{{ $user->email }}"/>
           <input type="email" placeholder="Enter Friend's Email-id..." ng-model="SearchFriend"/>
-          <input type="textbox" style="display:none;" ng-init="base_url=' {{ URL::to("profile/") }} '" ng-model = "base_url" />
-          <input type="textbox" style="display:none;" ng-init="url_search_friend_pic=' {{ URL::to("img/users") }} '" ng-model = "url_search_friend_pic" />
+          <input type="textbox" class="hidden" ng-init="base_url=' {{ URL::to("profile/") }} '" ng-model = "base_url" />
+          <input type="textbox" class="hidden" ng-init="url_search_friend_pic=' {{ URL::to("img/users") }} '" ng-model = "url_search_friend_pic" />
            <button type="submit" class="btn btn-primary" id="addFriend" ng-click="searchFriend()">
            <span class="span_searchFriend">Add Friend</span>
            </button>

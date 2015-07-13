@@ -8,7 +8,11 @@
 		"way/database": "dev-master",
 		  "way/generators": "~2.0",
 		  "guzzlehttp/guzzle": "~4.0",
-		"pusher/pusher-php-server": "^2.2"
+		"pusher/pusher-php-server": "^2.2",
+		"intervention/image": "^2.3",
+		"intervention/imagecache": "^2.3"
+
+		
 	},
 	"autoload": {
 		"classmap": [

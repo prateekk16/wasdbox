@@ -18,6 +18,10 @@ Route::group(['prefix' => 'profile', 'before' => array('auth')], function()
                 'as' => 'send_request',
                 'uses' => 'UserController@send_request'
             ]);
+            Route::post('/uploadAvatar', [
+                'as' => 'uploadAvatar',
+                'uses' => 'UserController@uploadAvatar'
+            ]);
 
 
             

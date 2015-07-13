@@ -34,6 +34,10 @@ EOF
 echo "--- Enabling mod-rewrite ---"
 sudo a2enmod rewrite
 
+sudo apt-get update
+sudo apt-get install imagemagick -y
+sudo apt-get install php5-imagick
+
 echo "--- Setting document root ---"
 sudo rm -rf /var/www
 sudo ln -fs /vagrant/public /var/www
