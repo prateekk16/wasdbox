@@ -104,14 +104,16 @@
                 {{ HTML::image('img/users/'.$user->email.'/avatar.jpg','avatar',  array('class' => 'avatar')) }}
             </div>            
           </div>
-          <div class="row" ng-controller="UploadAvatar">
-               {{ Form::open(array('url' => 'profile/uploadAvatar', 'files' => true)) }}
+          <div class="row">
+               {{ Form::open(array('url' => 'profile/uploadAvatar', 'files' => true, 'id'=>'uploadAvatar')) }}
                   <div class="col-md-4 col-md-offset-4">
-                     <input type="text" name="user" class="hidden" ng-init="user_email=' {{ $user->email }} '" ng-model = "user_email"/>                    
-                     {{ Form::file('avatar') }}
+                     <input type="text" name="user" class="hidden" value="{{ $user->email }}"/>   
+
+                     <input name="avatar" type="file"/>
                   </div>
                   <div class="col-md-4 col-md-offset-4">
-                      <button type="submit" class="btn btn-primary" id="uploadAvatar" ng-click="uploadAvatar()">
+                      <button type="submit" class="btn btn-primary" id="uploadAvatar-btn">
+                       <span class="uploadAvatar-btn-text"> Upload </span></button>
                   </div>
                 {{ Form::close() }}
           </div>  

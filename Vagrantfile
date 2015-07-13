@@ -20,5 +20,7 @@ config.vm.box = "hashicorp/precise32"
   # Bootstrap with Apache2.
   config.vm.provision :shell, path: "bootstrap.sh"
 
+  config.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=777","fmode=666"]
+
   
 end

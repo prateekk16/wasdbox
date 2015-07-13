@@ -96,10 +96,15 @@ class UserController extends BaseController
                 $file = Input::file('avatar');
                 $filename =  $file->getClientOriginalName();
 
-                $jpg = (string) Image::make($file)->encode('jpg', 100);
-                $big = Image::make($file)->resize(255, 250);
+             //   $jpg = (string) Image::make($file)->encode('jpg', 100);
+             //   $big = Image::make($jpg)->resize(255, 250);
+              //  $med = Image::make($jpg)->resize(155, 150);
+              //  $small = Image::make($jpg)->resize(50, 50);
 
-                $file->move($parentDir, $dp_big);
+             //   $big->save($parentDir, $dp_big);
+
+               $img =  $file->move($parentDir, 'avatar.jpg');
+                $image = Image::make($img)->resize(255, 250)->save();
             }
     }
 

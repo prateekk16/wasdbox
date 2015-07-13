@@ -138,3 +138,34 @@ app.controller('FriendController',['$http', '$scope', function($http, $scope) {
 }]);
 
 
+$('#uploadAvatar').on('submit',(function(e){
+
+  $("#uploadAvatar-btn").attr("disabled", true);
+  $(".uploadAvatar-btn-text").text("Please wait...");
+
+  e.preventDefault();
+  var url = $(this).attr('action');
+  alert(url);
+
+     $.ajax({
+                                                        type:'POST',
+                                                        url: url,
+                                                        data: new FormData(this),
+                                                        success:function(response){                                                               
+
+                                                            swal( 'Done!', 'success'   );
+                                                            $("#uploadAvatar-btn").attr("disabled", false);
+                                                            $(".uploadAvatar-btn-text").text("Upload");
+                                                            $(.change-dp-modal).modal(hide);
+                                                        },
+                                                        error:function(){
+
+                                                        }                                                        
+            });
+  
+
+
+
+}));
+
+
