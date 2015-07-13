@@ -1,0 +1,44 @@
+.t4i2-logo{
+	width: 85px;
+  position: relative;
+  top: -16px;
+}
+
+.url-link{
+	width: 25px;
+	display: inline-block;
+}
+.url-link2{
+	width: 25px;
+	display: inline-block;
+	float: left;
+	margin-right: 10px;
+}
+.url-link1{
+	width: 20px;
+	display: inline-block;
+}
+
+.nav-tabs1>li>a {
+  
+  background-color: rgb(232, 229, 229);
+  }
+
+  .change-color{
+  	color: rgb(21, 140, 186);
+  }
+
+  .field-2{
+  	margin-bottom: 30px;
+  }
+
+
+.legend .color-sample {
+  display: block;
+  float: left;
+  width: 1em;
+  height: 1em;
+  border: 2px solid;
+  border-radius: 0.5em;
+  margin-right: 0.5em;
+}
