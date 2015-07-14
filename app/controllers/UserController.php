@@ -43,6 +43,7 @@ class UserController extends BaseController
         $this->layout->content = View::make('pages.profile.index',array('user' => Auth::user(), 'freq'=>$total_requests->count(), 'senders'=>$total_requests ));
 
 
+
     }
 
     public function search_friend(){
@@ -96,16 +97,30 @@ class UserController extends BaseController
                     if(substr($file->getMimeType(), 0, 5) == 'image') {
                         // this is an image
                         $img =   Image::make($file); 
-                        $img = (string) Image::make($img)->encode('jpg', 90);           
+                        $img = (string) Image::make($img)->encode('jpg', 100);
 
-                       Image::make($img)->resize(255, 250)->save($parentDir.'avatar_big.jpg');
-                       Image::make($img)->resize(155, 150)->save($parentDir.'avatar_med.jpg');
-                       Image::make($img)->resize(50, 50)->save($parentDir.'avatar_small.jpg'); 
+                        Image::make($img)->save($parentDir.'avatar_orig.jpg');           
+
+                       Image::make($img)->resize(255, 250, function ($constraint) {
+                                    $constraint->aspectRatio();
+                                    $constraint->upsize();
+                                    })->save($parentDir.'avatar_big.jpg');
+
+                       Image::make($img)->resize(155, 150, function ($constraint) {
+                                    $constraint->aspectRatio();
+                                    $constraint->upsize();
+                                    })->save($parentDir.'avatar_med.jpg');
+
+                       Image::make($img)->resize(50, 50, function ($constraint) {
+                                     $constraint->aspectRatio();
+                                     $constraint->upsize();
+                                     })->save($parentDir.'avatar_small.jpg'); 
                     }
 
                        
-                       
+                       return "ERROR";
                 }
+                return "ERROR";
                
             }
     }

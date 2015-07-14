@@ -105,7 +105,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="gridSystemModalLabel">Change Your Profile Picture...</h4>
       </div>
       <div class="modal-body" >
         <div class="container-fluid" data-provides="fileinput">
@@ -123,7 +123,8 @@
                   <div class="col-md-4 col-md-offset-4">
                      {{ Form::open(array('url' => 'profile/uploadAvatar', 'files' => true, 'id'=>'uploadAvatar')) }}                  
                      <input type="text" name="user" class="hidden" value="{{ $user->email }}"/> 
-                     <input type="file" name="avatar" id="choose-avatar"  class="hidden" />
+                     {{ Form::file('avatar', array('id' => 'choose-avatar', 'class'=> 'hidden')) }}
+                    
                      <label for="choose-avatar">
                         <span class="choose-avatar-btn btn btn-primary fileinput-new" style="width :155px;"> Choose a Picture </span>
                      </label>
