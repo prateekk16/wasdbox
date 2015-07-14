@@ -78,10 +78,7 @@ class UserController extends BaseController
         App::make('Pusher')->trigger('FriendRequestChannel','userSentRequest', ['sender_email' => $sender->email, 'receiver_email' => $receiver->email, 'sender_name' => $sender->personalInfo->firstname.' '.$sender->personalInfo->lastname, 'total_req' => $total_requests->count()   ]);
     }
 
-    public function uploadAvatar(){
-        $dp_big = 'avatar_big.jpg';
-        $dp_med = 'avatar_med.jpg';
-        $dp_small = 'avatar_small.jpg';
+    public function uploadAvatar(){        
 
         $user = Input::get('user');
 

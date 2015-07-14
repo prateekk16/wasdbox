@@ -6,7 +6,12 @@
       <div class="col-sm-12 col-md-12">        
          <a class="navbar-brand" rel="home" href="#" style="padding: 0;">
           <div style="display: inline-block;">
-          {{ HTML::image('img/users/'.$user->email.'/avatar.jpg','avatar',  array('class' => 'avatar')) }}
+            @if(file_exists('img/users/'.$user->email.'/avatar_small.jpg'))            
+               {{ HTML::image('img/users/'.$user->email.'/avatar_small.jpg','avatar',  array('class' => 'avatar')) }}
+            @else
+             {{ HTML::image('img/blank_small.jpg','avatar',  array('class' => 'avatar')) }}
+            @endif
+
           {{ $user->personalInfo->firstname }} {{ $user->personalInfo->lastname }}
           </div>
         </a>        
@@ -22,7 +27,7 @@
 
   <div class="collapse navbar-collapse">  
     <div class="col-sm-2 col-md-2 pull-right">
-        <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav">
             <li class="dropdown">
              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -32,11 +37,13 @@
               </ul>
             </li>
             <li>
-            <a href="{{ URL::to('logout') }}" <i class="fa fa-power-off"></i> </a>
-            </li>
+               <a href="{{ URL::to('logout') }}" <i class="fa fa-power-off"></i> </a>
+            </li>        
         </ul>       
-   </div>   
+    </div>   
    
+              {{-- Search Input    --}}
+
       <div class="col-sm-3 col-md-3 pull-right">
             <form class="navbar-form" role="search" style="margin-bottom: 0; margin-top: 5px;">
               <div class="input-group">
@@ -48,44 +55,47 @@
             </form>
       </div>
 
-        <div class="col-sm-2 col-md-2 pull-right">
-         <ul class="nav navbar-nav" style="float:right;">
-              
-           <li class="dropdown"> 
-             @if($freq == '0')              
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="badge freq" style="background-color:rgb(255, 102, 102); display:none;"> </span><i class="fa fa-users"></i>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Settings</a></li>                  
-                  <li class="divider"></li>                 
-                </ul>
-            
-             @else
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <span class="badge freq" style="background-color:rgb(255, 102, 102);">{{ $freq }} </span><i class="fa fa-users" style="color: #e72c2c"></i>
-              </a>
-              <ul class="dropdown-menu">
-                @foreach($senders as $req)
-                  <li>
-                    <div class="freq-panel">                       
-                      <a href="#">
-                       {{ HTML::image('img/users/'.$req->getUser($req->sender_id)->email.'/avatar.jpg','avatar',  array('class' => 'avatar')) }}
-                        {{ $req->getUser($req->sender_id)->personalInfo->firstname }}  {{ $req->getUser($req->sender_id)->personalInfo->lastname }}
-                      </a>
-                     <button type="button" class="btn btn-success" id="addFriend" ng-click="">Accept</button>
-                      <button type="button" class="btn btn-danger" id="addFriend" ng-click="">Decline</button>
-                    </div>  
-                  </li> 
-                  <li class="divider"></li> 
-                @endforeach                
-              </ul>
+       {{--   Friend Request Button  --}}
 
-             @endif
-            </li>
-            <li><a href="#"><i class="fa fa-bell"></i></a></li> 
-        </ul>
-      </div> 
+        <div class="col-sm-2 col-md-2 pull-right">
+             <ul class="nav navbar-nav" style="float:right;">
+                  
+               <li class="dropdown"> 
+                 @if($freq == '0')              
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="badge freq" style="background-color:rgb(255, 102, 102); display:none;"> </span><i class="fa fa-users"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li style="padding:5px;">No new requests</li>                  
+                      <li class="divider"></li>                 
+                    </ul>
+                
+                 @else
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <span class="badge freq" style="background-color:rgb(255, 102, 102);">{{ $freq }} </span><i class="fa fa-users" style="color: #e72c2c"></i>
+                  </a>
+                  <ul class="dropdown-menu">
+                    @foreach($senders as $req)
+                      <li>
+                        <div class="freq-panel">                       
+                          <a href="#">
+                           {{ HTML::image('img/users/'.$req->getUser($req->sender_id)->email.'/avatar.jpg','avatar',  array('class' => 'avatar')) }}
+                            {{ $req->getUser($req->sender_id)->personalInfo->firstname }}  {{ $req->getUser($req->sender_id)->personalInfo->lastname }}
+                          </a>
+                         <button type="button" class="btn btn-success" id="addFriend" ng-click="">Accept</button>
+                          <button type="button" class="btn btn-danger" id="addFriend" ng-click="">Decline</button>
+                        </div>  
+                      </li> 
+                      <li class="divider"></li> 
+                    @endforeach                
+                  </ul>
+
+                 @endif
+                </li>
+                <li><a href="#"><i class="fa fa-bell"></i></a></li> 
+            </ul>
+        </div> 
+
   </div>
 </nav>
 
@@ -97,32 +107,36 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
       </div>
-      <div class="modal-body">
-        <div class="container-fluid">
+      <div class="modal-body" >
+        <div class="container-fluid" data-provides="fileinput">
           <div class="row">
-            <div class="col-md-4 col-md-offset-4"> 
-                {{ HTML::image('img/users/'.$user->email.'/avatar.jpg','avatar',  array('class' => 'avatar')) }}
+            <div class="col-md-4 col-md-offset-4 fileinput-preview thumbnail" data-trigger="fileinput"> 
+                  @if(file_exists('img/users/'.$user->email.'/avatar_med.jpg'))            
+                     {{ HTML::image('img/users/'.$user->email.'/avatar_med.jpg','avatar') }}
+                  @else
+                   {{ HTML::image('img/blank_med.jpg','avatar') }}
+                  @endif
+                  
             </div>            
           </div>
           <div class="row">
-               {{ Form::open(array('url' => 'profile/uploadAvatar', 'files' => true, 'id'=>'uploadAvatar')) }}
                   <div class="col-md-4 col-md-offset-4">
-                     <input type="text" name="user" class="hidden" value="{{ $user->email }}"/>   
-
-                     <input name="avatar" type="file"/>
+                     {{ Form::open(array('url' => 'profile/uploadAvatar', 'files' => true, 'id'=>'uploadAvatar')) }}                  
+                     <input type="text" name="user" class="hidden" value="{{ $user->email }}"/> 
+                     <input type="file" name="avatar" id="choose-avatar"  class="hidden" />
+                     <label for="choose-avatar">
+                        <span class="choose-avatar-btn btn btn-primary fileinput-new" style="width :155px;"> Choose a Picture </span>
+                     </label>
                   </div>
-                  <div class="col-md-4 col-md-offset-4">
-                      <button type="submit" class="btn btn-primary" id="uploadAvatar-btn">
-                       <span class="uploadAvatar-btn-text"> Upload </span></button>
-                  </div>
-                {{ Form::close() }}
+                
           </div>  
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      <button type="submit" class="btn btn-primary" id="uploadAvatar-btn"><span class="uploadAvatar-btn-text"> Upload </span></button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        
       </div>
+      {{ Form::close() }}
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

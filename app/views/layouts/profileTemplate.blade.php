@@ -53,6 +53,8 @@
 
 <script src="js/jquery-1.11.1.min.js"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+ <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
+ 
 {{ HTML::script('js/bootstrap.min.js') }}
 {{ HTML::script('js/jquery-ui.js') }}
 {{ HTML::script('js/jquery.backstretch.min.js') }}
